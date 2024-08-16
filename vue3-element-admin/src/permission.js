@@ -117,7 +117,6 @@ router.beforeEach(async to => {
     }
   }
 })
-
 router.afterEach(to => {
   loadingInstance.close()
   if (router.currentRoute.value.name === to.name) {
