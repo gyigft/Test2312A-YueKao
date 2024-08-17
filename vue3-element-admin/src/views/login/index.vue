@@ -77,6 +77,7 @@ export default defineComponent({
     watch(lang, () => {
       state.rules = getRules()
     })
+    //校验规则
     const getRules = () => ({
       userName: [
         {
@@ -99,6 +100,7 @@ export default defineComponent({
         },
       ],
     })
+    //vue实例
     const state = reactive({
       model: {
         userName: 'admin',
@@ -114,9 +116,11 @@ export default defineComponent({
         if (state.loading) {
           return
         }
+        //数据前端校验
         state.loginForm.validate(async valid => {
           if (valid) {
             state.loading = true
+            //请求后端响应的结果
             const { code, data, message } = await Login(state.model)
             if (+code === 200) {
               ctx.$message.success({
@@ -134,6 +138,7 @@ export default defineComponent({
               } else {
                 router.push('/')
               }
+              //初始化token信息
               useApp().initToken(data)
             } else {
               ctx.$message.error(message)

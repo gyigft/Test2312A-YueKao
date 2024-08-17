@@ -1,10 +1,15 @@
-package com.zt.controller;
+package com.zt.ztzx.controller;
 
+import com.zt.ztzx.model.dto.system.LoginDto;
+import com.zt.ztzx.model.vo.common.Result;
+import com.zt.ztzx.model.vo.system.LoginVo;
+import com.zt.ztzx.service.SysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -22,5 +27,17 @@ public class IndexController {
     public String index(@RequestParam("id")  int id) {
         return "admin index";
     }
+
+    @Autowired
+    private SysUserService sysUserService;
+    //登录接口
+    @PostMapping("login")
+    @Operation(summary = "登录接口方法", description = "登录接口",method = "login方法",requestBody = @RequestBody(description = "登录接口请求参数"))
+
+    public Result<LoginVo> login(@RequestBody @Parameter(description = "登录接口请求参数",name = "logintDto") LoginDto loginDto) {
+
+        return sysUserService.login(loginDto);
+    }
+
 
 }
