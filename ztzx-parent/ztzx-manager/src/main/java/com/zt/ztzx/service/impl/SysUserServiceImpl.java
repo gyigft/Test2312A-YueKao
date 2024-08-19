@@ -51,7 +51,8 @@ public class SysUserServiceImpl implements SysUserService {
         //校验免密码
         String password = DigestUtils.md5DigestAsHex(loginDto.getPassword().getBytes());
         if (!StrUtil.equals(password,sysUser.getPassword())){
-            throw  new RuntimeException("密码错误");
+//            throw  new RuntimeException("密码错误");
+            throw  new ZhentaoException(ResultCodeEnum.LOGIN_ERROR.getCode(),ResultCodeEnum.LOGIN_ERROR,ResultCodeEnum.LOGIN_ERROR.getMessage());
         }
         //生成token
         String token = IdUtil.simpleUUID();
@@ -62,5 +63,13 @@ public class SysUserServiceImpl implements SysUserService {
         loginVo.setRefresh_token("fgga");
 
         return Result.build(loginVo,200,"登录成功");
+    }
+
+    @Override
+    public Result<SysUser> getUserinfo(String token) {
+        //从redis中获取用户信息
+        String str = redisTemplate.opsForValue().get("user:login:" + token);
+        SysUser sysUser = JSON.parseObject(str, SysUser.class);
+        return Result.build(sysUser,200,"获取用户信息成功");
     }
 }

@@ -35,7 +35,7 @@ import router from '@/router'
 import { useApp } from '@/pinia/modules/app'
 
 const service = axios.create({
-  baseURL: '/', //后端接口路径
+  baseURL: 'http://localhost:8501', //后端接口路径
   timeout: 10000,
   withCredentials: true,
 })
@@ -45,9 +45,10 @@ service.interceptors.request.use(
   config => {
     const { authorization } = useApp()
     if (authorization) {
-      //设置请求头
-      config.headers.Authorization = `Bearer ${authorization.token}`
-      // config.headers.toekn = authorization.token
+      //设置请求头,任意指定请求头信息
+      // config.headers.Authorization = `Bearer ${authorization.token}`
+      //自定义请求头 token：sfasdgsdgsdgsgdCH
+      config.headers.token = authorization.token
     }
     return config
   },

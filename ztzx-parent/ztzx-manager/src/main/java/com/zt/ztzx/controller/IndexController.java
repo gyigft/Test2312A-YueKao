@@ -1,6 +1,7 @@
 package com.zt.ztzx.controller;
 
 import com.zt.ztzx.model.dto.system.LoginDto;
+import com.zt.ztzx.model.entity.system.SysUser;
 import com.zt.ztzx.model.vo.common.Result;
 import com.zt.ztzx.model.vo.system.LoginVo;
 import com.zt.ztzx.service.SysUserService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("admin/system/index")
 @Tag(name = "首页统一接口", description = "首页接口")
+//@CrossOrigin(origins = "*",originPatterns = "*", allowedHeaders = "*",allowCredentials = "true",)  //解决跨域的注解
 public class IndexController {
     @GetMapping("index")
     //对具体接口的声明描述
@@ -37,6 +39,13 @@ public class IndexController {
     public Result<LoginVo> login(@RequestBody LoginDto loginDto) {
         System.out.println(loginDto);
         return sysUserService.login(loginDto);
+    }
+    //获取用户信息,
+    @GetMapping("userinfo")
+    @Operation(summary = "获取用户信息接口方法", description = "获取用户信息接口", method = "info方法")
+    //spirngmvc中如何获取请求头信息
+    public Result<SysUser> info(@RequestHeader(name = "token")String token) {
+        return sysUserService.getUserinfo(token);
     }
 
 
