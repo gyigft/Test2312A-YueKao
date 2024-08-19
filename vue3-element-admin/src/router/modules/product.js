@@ -11,27 +11,22 @@
  */
 // home.js
 const Layout = () => import('@/layout/index.vue')
-const Home = () => import('@/views/home/index.vue')
-// const Product = () => import('@/views/product/index.vue')
+const Product = () => import('@/views/product/index.vue')
 
 export default [
   {
-    path: '/home',
+    path: '/product',
     component: Layout,
     name: 'Dashboard',
     meta: {
-      title: 'menu.dashboard',
+      title: '产品管理',
     },
     icon: 'icon-home',
     children: [
       {
         path: '',
-        name: 'home',
-        component: Home,
-        meta: {
-          title: 'menu.homepage',
-          affix: true,
-        },
+        name: 'product',
+        component: Product,
       },
     ],
   } /*,  {

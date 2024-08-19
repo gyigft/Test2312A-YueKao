@@ -47,6 +47,13 @@ public class IndexController {
     public Result<SysUser> info(@RequestHeader(name = "token")String token) {
         return sysUserService.getUserinfo(token);
     }
+    //用户退出
+    @GetMapping("logout")
+    @Operation(summary = "用户退出接口方法", description = "用户退出接口", method = "logout方法")
+    public Result logout(@RequestHeader(name = "token")String token) {
+        sysUserService.logout(token);
+        return Result.build(null, 200, "退出成功");
+    }
 
 
 }

@@ -74,6 +74,8 @@ import { useRouter } from 'vue-router'
 import { useUserinfo } from '@/components/Avatar/hooks/useUserinfo'
 import LockModal from './LockModal.vue'
 import { useApp } from '@/pinia/modules/app'
+import { Logout } from '@/api/login'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
   components: {
@@ -84,11 +86,15 @@ export default defineComponent({
 
     const { userinfo } = useUserinfo()
 
-    // 退出
-    const logout = () => {
-      // 清除token
-      useApp().clearToken()
-      router.push('/login')
+    // 退出  async采用异步   await异步等待响应，必须同时出现
+    const logout = async () => {
+      const { code, message } = await Logout()
+      if (+code == 200) {
+        // 清除token
+        useApp().clearToken()
+        ElMessage.success(message)
+        router.push('/login')
+      }
     }
 
     return {

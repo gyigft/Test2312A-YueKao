@@ -11,4 +11,6 @@ public interface SysUserService {
     Result<LoginVo> login(LoginDto loginDto) ;
 
     Result<SysUser> getUserinfo(String token);
+
+    void logout(String token);
 }
