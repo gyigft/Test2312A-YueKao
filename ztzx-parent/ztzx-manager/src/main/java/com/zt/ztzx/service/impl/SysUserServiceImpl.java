@@ -4,12 +4,15 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
+import com.zt.ztzx.exception.ZhentaoException;
 import com.zt.ztzx.mapper.SysUserMapper;
 import com.zt.ztzx.model.dto.system.LoginDto;
 import com.zt.ztzx.model.entity.system.SysUser;
 import com.zt.ztzx.model.vo.common.Result;
+import com.zt.ztzx.model.vo.common.ResultCodeEnum;
 import com.zt.ztzx.model.vo.system.LoginVo;
 import com.zt.ztzx.service.SysUserService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -36,11 +39,13 @@ public class SysUserServiceImpl implements SysUserService {
      * @param loginDto
      * @return
      */
+//    @SneakyThrows
     @Override
-    public Result<LoginVo> login(LoginDto loginDto) {
+    public Result<LoginVo> login(LoginDto loginDto)  {
         //进行统一异常处理 ，自定义异常
         if (ObjectUtil.isEmpty(loginDto)){
-            throw  new RuntimeException("数据有误");
+//            throw  new RuntimeException("数据有误");
+            throw new ZhentaoException(ResultCodeEnum.DATA_ERROR.getCode(),ResultCodeEnum.DATA_ERROR,ResultCodeEnum.DATA_ERROR.getMessage());
         }
         SysUser sysUser = sysUserMapper.login(loginDto.getUserName());
         //校验免密码
