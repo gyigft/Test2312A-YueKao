@@ -17,7 +17,7 @@ export default [
   {
     path: '/product',
     component: Layout,
-    name: 'Dashboard',
+    name: 'prod',
     meta: {
       title: '产品管理',
     },

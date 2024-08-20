@@ -5,6 +5,7 @@ import com.zt.ztzx.model.entity.system.SysUser;
 import com.zt.ztzx.model.vo.common.Result;
 import com.zt.ztzx.model.vo.system.LoginVo;
 import com.zt.ztzx.service.SysUserService;
+import com.zt.ztzx.utils.AuthContextUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -44,8 +45,13 @@ public class IndexController {
     @GetMapping("userinfo")
     @Operation(summary = "获取用户信息接口方法", description = "获取用户信息接口", method = "info方法")
     //spirngmvc中如何获取请求头信息
-    public Result<SysUser> info(@RequestHeader(name = "token")String token) {
-        return sysUserService.getUserinfo(token);
+//    public Result<SysUser> info(@RequestHeader(name = "token")String token) {
+    public Result<SysUser> info() {
+
+        //从当前线程中取出用户信息
+        SysUser user = AuthContextUtil.getUser();
+//        return sysUserService.getUserinfo(token);
+        return Result.build(user, 200, "获取用户信息成功");
     }
     //用户退出
     @GetMapping("logout")

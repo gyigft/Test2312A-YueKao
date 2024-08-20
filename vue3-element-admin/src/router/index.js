@@ -34,10 +34,11 @@ import lock from './modules/lock'
 import home from './modules/home'
 import test from './modules/test'
 import product from './modules/product'
+import system from '@/router/modules/system'
 
 /* 菜单栏的路由 */
 // 固定菜单,数组的合并
-export const fixedRoutes = [...home, ...product]
+export const fixedRoutes = [...home, ...system, ...product]
 // 动态菜单
 export const asyncRoutes = [...test]
 

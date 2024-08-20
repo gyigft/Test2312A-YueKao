@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSON;
 import com.zt.ztzx.model.entity.system.SysUser;
 import com.zt.ztzx.model.vo.common.Result;
 import com.zt.ztzx.model.vo.common.ResultCodeEnum;
+import com.zt.ztzx.utils.AuthContextUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,8 @@ public class AuthLoginInterceptor implements HandlerInterceptor {
 
         // 将用户数据存储到ThreadLocal中
         SysUser sysUser = JSON.parseObject(sysUserInfoJson, SysUser.class);
-//        AuthContextUtil.set(sysUser);
+        // 将用户数据存储到ThreadLocal中
+        AuthContextUtil.setUser(sysUser);
 
         // 重置Redis中的用户数据的有效时间
         redisTemplate.expire("user:login:" + token , 30 , TimeUnit.MINUTES) ;
