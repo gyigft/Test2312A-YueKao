@@ -11,7 +11,7 @@ export const GetRoleListByPage = (currentPage, pageSize, queryDto) =>
 // 添加角色请求方法
 export const SaveSysRole = data => {
   return request({
-    url: '/admin/system/sysRole/saveSysRole',
+    url: '/admin/system/role/saveSysRole',
     method: 'post',
     data,
   })
@@ -20,7 +20,7 @@ export const SaveSysRole = data => {
 // 保存修改
 export const UpdateSysRole = data => {
   return request({
-    url: '/admin/system/sysRole/updateSysRole',
+    url: '/admin/system/role/updateSysRole',
     method: 'put',
     data,
   })
@@ -28,7 +28,14 @@ export const UpdateSysRole = data => {
 // 删除角色
 export const DeleteSysRoleById = roleId => {
   return request({
-    url: '/admin/system/sysRole/deleteById/' + roleId,
+    url: '/admin/system/role/deleteById/' + roleId,
     method: 'delete',
+  })
+}
+// 查询所有的角色数据
+export const GetAllRoleList = userId => {
+  return request({
+    url: `/admin/system/role/findAllRoles/${userId}`,
+    method: 'get',
   })
 }

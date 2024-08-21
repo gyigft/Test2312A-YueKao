@@ -1,6 +1,7 @@
 package com.zt.ztzx.config;
 
 import com.zt.ztzx.interceptor.AuthLoginInterceptor;
+import com.zt.ztzx.properties.AuthProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -24,10 +25,12 @@ public class CorsConfig implements WebMvcConfigurer {
                 .maxAge(3600);
     }
 
+    @Autowired
+    private AuthProperties authProperties;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authLoginInterceptor)
                 //放行路径
-                .excludePathPatterns("/admin/system/index/login","/doc.html","/v3/**","/webjars/**");
+                .excludePathPatterns(authProperties.getNoAuthUrls()).addPathPatterns("/**");
     }
 }

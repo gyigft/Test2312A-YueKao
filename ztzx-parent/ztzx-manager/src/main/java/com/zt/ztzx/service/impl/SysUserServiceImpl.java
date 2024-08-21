@@ -4,9 +4,14 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zt.ztzx.exception.ZhentaoException;
+import com.zt.ztzx.mapper.SysRoleUserMapper;
 import com.zt.ztzx.mapper.SysUserMapper;
+import com.zt.ztzx.model.dto.system.AssginRoleDto;
 import com.zt.ztzx.model.dto.system.LoginDto;
+import com.zt.ztzx.model.dto.system.SysUserDto;
 import com.zt.ztzx.model.entity.system.SysUser;
 import com.zt.ztzx.model.vo.common.Result;
 import com.zt.ztzx.model.vo.common.ResultCodeEnum;
@@ -18,6 +23,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -29,6 +35,9 @@ public class SysUserServiceImpl implements SysUserService {
     private SysUserMapper sysUserMapper;
     @Autowired
     private RedisTemplate<String,String> redisTemplate;
+
+    @Autowired
+    private SysRoleUserMapper sysRoleUserMapper;
 
     /**
      * 登录流程
@@ -81,5 +90,54 @@ public class SysUserServiceImpl implements SysUserService {
     public void logout(String token) {
         redisTemplate.delete("user:login:"+token);
 
+    }
+    @Override
+    public PageInfo<SysUser> findByPage(SysUserDto sysUserDto, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum , pageSize);
+        List<SysUser> sysUserList = sysUserMapper.findByPage(sysUserDto) ;
+        PageInfo pageInfo = new PageInfo(sysUserList) ;
+        return pageInfo;
+    }
+
+    @Override
+    public void saveSysUser(SysUser sysUser) {
+        // 根据输入的用户名查询用户
+        SysUser dbSysUser = sysUserMapper.findByUserName(sysUser.getUserName());
+        if(dbSysUser != null) {
+            throw new ZhentaoException(ResultCodeEnum.USER_NAME_IS_EXISTS) ;
+        }
+
+        // 对密码进行加密
+        String password = sysUser.getPassword();
+        String digestPassword = DigestUtils.md5DigestAsHex(password.getBytes());
+        sysUser.setPassword(digestPassword);
+        sysUser.setStatus(0);
+        sysUserMapper.saveSysUser(sysUser) ;
+    }
+
+    @Override
+    public void updateSysUser(SysUser sysUser) {
+        sysUserMapper.updateSysUser(sysUser);
+    }
+
+    @Override
+    public void deleteById(Long userId) {
+        sysUserMapper.deleteById(userId);
+    }
+
+    @Override
+    public void doAssign(AssginRoleDto assginRoleDto) {
+        //1 根据userId删除用户之前分配角色数据
+        sysRoleUserMapper.deleteByUserId(assginRoleDto.getUserId());
+
+        //TODO 为了测试，模拟异常
+        int a = 1/0;
+
+        //2 重新分配新数据
+        List<Long> roleIdList = assginRoleDto.getRoleIdList();
+        //遍历得到每个角色id
+        for(Long roleId:roleIdList) {
+            sysRoleUserMapper.doAssign(assginRoleDto.getUserId(),roleId);
+        }
     }
 }

@@ -15,3 +15,12 @@ server:
 mybatis:
   config-location: classpath:/mybatis-config.xml
   mapper-locations: classpath:/mapper/*.xml
+#自定义配置属性
+ztzx:
+  manager:
+    noAuthUrls:
+      - /admin/system/index/login
+      - /v3/**
+      - /doc.html
+      - /webjars/**
+      - /swagger-resources/**
