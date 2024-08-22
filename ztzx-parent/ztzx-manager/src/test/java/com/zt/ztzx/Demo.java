@@ -1,10 +1,14 @@
 package com.zt.ztzx;
 
+import com.zt.ztzx.model.entity.system.SysMenu;
+import com.zt.ztzx.service.SysMenuService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.DigestUtils;
+
+import java.util.List;
 
 /**
  * @Author: 天山一剑卓不凡
@@ -22,6 +26,17 @@ public class Demo {
         System.out.println(s1);
         System.out.println(s2);
 
+    }
+    @Autowired
+    private SysMenuService service;
+    @Test
+    public void test2(){
+
+        List<SysMenu> menus1 = service.findMenus(0l);
+
+        List<SysMenu> menus = service.findAll();
+        System.out.println(menus1);
+        System.out.println(menus);
     }
  /*   @Autowired
     private RedisTemplate<String,String> stringRedisTemplate;

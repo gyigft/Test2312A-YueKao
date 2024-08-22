@@ -131,7 +131,7 @@ public class SysUserServiceImpl implements SysUserService {
         sysRoleUserMapper.deleteByUserId(assginRoleDto.getUserId());
 
         //TODO 为了测试，模拟异常
-        int a = 1/0;
+//        int a = 1/0;
 
         //2 重新分配新数据
         List<Long> roleIdList = assginRoleDto.getRoleIdList();

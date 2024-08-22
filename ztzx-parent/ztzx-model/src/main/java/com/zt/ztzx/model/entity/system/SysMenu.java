@@ -26,6 +26,7 @@ public class SysMenu extends BaseEntity {
 	private Integer status;
 
 	// 下级列表
+	//自身和自身是一个一对多关系   菜单表和菜单表是一个对多关系
 	@Schema(description = "子节点")
 	private List<SysMenu> children;
 
