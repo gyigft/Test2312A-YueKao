@@ -16,6 +16,7 @@ export default [
     icon: 'Location',
     children: [
       {
+        //name将来必须和数据库中sys_menu中component属性一致
         path: '/sysRole',
         name: 'sysRole',
         component: sysRole,
