@@ -38,9 +38,9 @@ import system from '@/router/modules/system'
 
 /* 菜单栏的路由 */
 // 固定菜单,数组的合并
-export const fixedRoutes = [...home, ...system, ...product]
+export const fixedRoutes = [...home]
 // 动态菜单
-export const asyncRoutes = [...test]
+export const asyncRoutes = [...system]
 
 const router = createRouter({
   history: createWebHashHistory(),

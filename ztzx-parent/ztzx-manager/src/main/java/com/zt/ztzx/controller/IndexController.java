@@ -4,6 +4,8 @@ import com.zt.ztzx.model.dto.system.LoginDto;
 import com.zt.ztzx.model.entity.system.SysUser;
 import com.zt.ztzx.model.vo.common.Result;
 import com.zt.ztzx.model.vo.system.LoginVo;
+import com.zt.ztzx.model.vo.system.SysMenuVo;
+import com.zt.ztzx.service.SysRoleMenuService;
 import com.zt.ztzx.service.SysUserService;
 import com.zt.ztzx.utils.AuthContextUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +14,9 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: 天山一剑卓不凡
@@ -59,6 +64,17 @@ public class IndexController {
     public Result logout(@RequestHeader(name = "token")String token) {
         sysUserService.logout(token);
         return Result.build(null, 200, "退出成功");
+    }
+
+    //查询当前用户的菜单
+
+    @Autowired
+    private SysRoleMenuService sysRoleMenuService;
+    @GetMapping("menus")
+    @Operation(summary = "查询当前用户的菜单接口方法", description = "查询当前用户的菜单接口", method = "menus方法")
+    public Result<List<SysMenuVo>> menus() {
+        List<SysMenuVo> list =sysRoleMenuService.findSysMenus();
+        return Result.build(list, 200, "查询当前用户的菜单成功");
     }
 
 
