@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zt.ztzx.mapper.TianmaoshangchengMapper">
+
+    <resultMap id="BaseResultMap" type="com.zt.ztzx.domain.Tianmaoshangcheng">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="typeid" column="typeid" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="fid" column="fid" jdbcType="VARCHAR"/>
+        <result property="tdengji" column="tdengji" jdbcType="INTEGER"/>
+        <result property="is_deleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,typeid,name,
+        fid,tdengji,is_deleted
+    </sql>
+    <update id="Tombstone">
+        update tianmaoshangcheng set is_deleted = 1 where id in
+        <foreach collection="id" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    <delete id="BatchDelete">
+        delete from tianmaoshangcheng where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="findAll" resultType="com.zt.ztzx.domain.Tianmaoshangcheng">
+        select *
+        from tianmaoshangcheng
+    </select>
+    <select id="vague" resultType="com.zt.ztzx.domain.Tianmaoshangcheng">
+        select *
+        from tianmaoshangcheng
+        where name like "%"#{name}"%"
+    </select>
+</mapper>

@@ -11,7 +11,7 @@
  */
 // home.js
 const Layout = () => import('@/layout/index.vue')
-const Product = () => import('@/views/product/index.vue')
+const System = () => import('@/views/system/sysUser.vue')
 
 export default [
   {
@@ -25,8 +25,8 @@ export default [
     children: [
       {
         path: '',
-        name: 'product',
-        component: Product,
+        name: 'system',
+        component: System,
       },
     ],
   } /*,  {
