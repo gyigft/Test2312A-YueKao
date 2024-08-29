@@ -1,6 +1,5 @@
 package com.zt.ztzx.mapper;
 
-import com.zt.ztzx.model.dto.system.LoginDto;
 import com.zt.ztzx.model.dto.system.SysUserDto;
 import com.zt.ztzx.model.entity.system.SysUser;
 import org.apache.ibatis.annotations.Select;

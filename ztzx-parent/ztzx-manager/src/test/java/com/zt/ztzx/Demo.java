@@ -5,7 +5,6 @@ import com.zt.ztzx.service.SysMenuService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.DigestUtils;
 
 import java.util.List;

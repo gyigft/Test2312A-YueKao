@@ -17,7 +17,6 @@ import com.zt.ztzx.model.vo.common.Result;
 import com.zt.ztzx.model.vo.common.ResultCodeEnum;
 import com.zt.ztzx.model.vo.system.LoginVo;
 import com.zt.ztzx.service.SysUserService;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

@@ -5,8 +5,6 @@ package com.zt.ztzx.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zt.ztzx.domain.Param;
 import com.zt.ztzx.domain.Tianmaoshangcheng;
-import com.zt.ztzx.model.entity.system.SysRole;
-import com.zt.ztzx.model.entity.system.SysUser;
 import com.zt.ztzx.model.vo.common.Result;
 import com.zt.ztzx.service.TianmaoshangchengService;
 import jakarta.annotation.Resource;

@@ -1,7 +1,6 @@
 package com.zt.ztzx.service;
 
 import com.github.pagehelper.PageInfo;
-import com.zt.ztzx.exception.ZhentaoException;
 import com.zt.ztzx.model.dto.system.AssginRoleDto;
 import com.zt.ztzx.model.dto.system.LoginDto;
 import com.zt.ztzx.model.dto.system.SysUserDto;
